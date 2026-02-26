@@ -1,8 +1,12 @@
-# Execution Operating System
+<p align="center">
+  <img src="assets/banner.svg" alt="Execution Operating System" width="900"/>
+</p>
 
-**Intent → Contract → Delivery**
-
-D150 scope | D180 automation
+<p align="center">
+  <img src="https://img.shields.io/badge/status-v2_draft-2ECDA7?style=flat-square" alt="Status"/>
+  <img src="https://img.shields.io/badge/cycle-D150_scope-2ECDA7?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiI+PGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9IjUiIGZpbGw9IiMyRUNEQTciLz48L3N2Zz4=" alt="D150"/>
+  <img src="https://img.shields.io/badge/target-D180_automation-00B98D?style=flat-square" alt="D180"/>
+</p>
 
 ---
 
@@ -10,68 +14,137 @@ D150 scope | D180 automation
 
 We have concrete misses where interface/contract intent was ambiguous (COE tool, simplified interface). Not pervasive, but avoidable.
 
-**Result:** plausible builds that were not the customer outcome.
-
-**Goal:** make intent testable earlier so rework is avoidable.
+> **Result** &mdash; plausible builds that were not the customer outcome
+>
+> **Goal** &mdash; make intent testable earlier so rework is avoidable
 
 ---
 
 ## Minimal operating model (contract-first)
 
-Contract-first = UX flow + API contract reviewed together; UI must not force incoherent APIs.
+> Contract-first = UX flow + API contract reviewed together; UI must not force incoherent APIs.
 
-```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│              │     │              │     │              │     │              │
-│  1. Intent   │────▶│  2. Design   │────▶│ 3. Execution │────▶│  4. Release  │
-│              │     │              │     │              │     │              │
-└──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
-```
+<p align="center">
+  <img src="assets/flow-model.svg" alt="Intent → Design → Execution → Release" width="800"/>
+</p>
 
 ---
 
 ## This cycle (D150): lock what is in motion
 
-- **Definition of Done** in Linear + milestones + short tech design note
-- **No new process rollout mid-cycle**
-- If sign-off is blocked past date X, DRI escalates to Daniel or Matt; decision + rationale recorded in Linear
+<table>
+<tr>
+<td width="40">
+
+![check](https://img.shields.io/badge/✓-2ECDA7?style=flat-square&labelColor=2ECDA7)
+
+</td>
+<td>
+
+**Definition of Done** in Linear + milestones + short tech design note
+
+</td>
+</tr>
+<tr>
+<td>
+
+![check](https://img.shields.io/badge/✓-2ECDA7?style=flat-square&labelColor=2ECDA7)
+
+</td>
+<td>
+
+**No new process rollout mid-cycle**
+
+</td>
+</tr>
+<tr>
+<td>
+
+![check](https://img.shields.io/badge/✓-2ECDA7?style=flat-square&labelColor=2ECDA7)
+
+</td>
+<td>
+
+If sign-off is blocked past date X, **DRI escalates to Daniel or Matt**; decision + rationale recorded in Linear
+
+</td>
+</tr>
+</table>
 
 ---
 
 ## D180 automation target: Linear gatekeeping
 
-- Block **'In Progress'** unless DoD fields + mock/contract link are present for interface/contract work
-- Bot can auto-stub the design note to reduce friction
-- Enforces intent before build; **automation beats process**
+<table>
+<tr>
+<td width="40">
+
+![bot](https://img.shields.io/badge/🤖-1a1a2e?style=flat-square&labelColor=1a1a2e)
+
+</td>
+<td>
+
+Block **'In Progress'** unless DoD fields + mock/contract link are present for interface/contract work
+
+</td>
+</tr>
+<tr>
+<td>
+
+![bot](https://img.shields.io/badge/🤖-1a1a2e?style=flat-square&labelColor=1a1a2e)
+
+</td>
+<td>
+
+Bot can **auto-stub the design note** to reduce friction
+
+</td>
+</tr>
+<tr>
+<td>
+
+![bot](https://img.shields.io/badge/🤖-1a1a2e?style=flat-square&labelColor=1a1a2e)
+
+</td>
+<td>
+
+Enforces intent before build &mdash; **automation beats process**
+
+</td>
+</tr>
+</table>
 
 ---
 
 ## UAT expansion (highest ROI)
 
-- **Focus areas:** authnz, installers, model engine
-- **Approach:** build on existing CD pipeline + SDK smoke tests; expand with Playwright browser flows + regression harness
-- **Outcome:** fewer regressions without slowing delivery
+| | |
+|---|---|
+| **Focus areas** | authnz, installers, model engine |
+| **Approach** | Build on existing CD pipeline + SDK smoke tests; expand with Playwright browser flows + regression harness |
+| **Outcome** | Fewer regressions without slowing delivery |
 
 ---
 
 ## Example chain: make intent testable
 
-```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────────┐
-│ Linear ticket│     │  UX mock +   │     │    Build     │     │     Outcome      │
-│ (DoD +       │────▶│ API contract │────▶│   & review   │────▶│ (customer intent) │
-│  milestones) │     │              │     │              │     │                  │
-└──────────────┘     └──────────────┘     └──────────────┘     └──────────────────┘
-```
+<p align="center">
+  <img src="assets/example-chain.svg" alt="Linear ticket → UX mock + API contract → Build & review → Outcome" width="820"/>
+</p>
 
-> If mock/contract is missing, we build plausible outcomes that are not the customer outcome.
+<p align="center">
+  <em>If mock/contract is missing, we build plausible outcomes that are not the customer outcome.</em>
+</p>
 
 ---
 
-## Appendix: templates (tiny + specific)
+<details>
+<summary><strong>Appendix: templates (tiny + specific)</strong></summary>
+
+<br/>
 
 | Artifact | Contents |
-|----------|----------|
+|:---------|:---------|
 | **PRD-lite** | problem, user, workflow, success criteria, non-goals, risks |
 | **UX mock** | one screen + user journey description |
 | **Design note** | approach, API/interface impacts, data model impacts, security implications, rollout plan |
@@ -80,23 +153,36 @@ Contract-first = UX flow + API contract reviewed together; UI must not force inc
 - Data model impact = entities + migration story
 - Security = authz touchpoints + audit fields
 
----
+</details>
 
-## Appendix: learning loop
+<details>
+<summary><strong>Appendix: learning loop</strong></summary>
+
+<br/>
 
 - **Hot wash:** same-day capture of surprises and pain points
 - **Retro/COE:** metrics-based root cause by layer
 - **Output:** 3-5 corrective actions with DRIs and dates
 
+</details>
+
+<details>
+<summary><strong>Appendix: ownership model</strong></summary>
+
+<br/>
+
+| Role | Responsibility |
+|:-----|:---------------|
+| **Customer surrogate** | Owns intent (Probst, Preston, field engineers) |
+| **Project lead** | Owns the PRD artifact |
+| **Engineering** | Negotiates feasibility and nonfunctional requirements |
+
+Explicit decision + escalation + log.
+
+</details>
+
 ---
 
-## Ownership model (reference)
-
-- **Customer surrogate** owns intent (Probst, Preston, field engineers)
-- **Project lead** owns the PRD artifact
-- **Engineering** negotiates feasibility and nonfunctional requirements
-- Explicit decision + escalation + log
-
----
-
-*krti@kamiwaza.ai | Feb 2026*
+<p align="center">
+  <sub>krti@kamiwaza.ai · Feb 2026</sub>
+</p>
