@@ -138,16 +138,27 @@ Enforces intent before build &mdash; **automation beats process**
 
 ---
 
+## Repo contents
+
+| | Resource | Description |
+|:--|:---------|:------------|
+| **[`templates/`](templates/)** | Fill-in-the-blank artifacts | [PRD-lite](templates/prd-lite.md) · [UX mock](templates/ux-mock.md) · [Design note](templates/design-note.md) |
+| **[`case-studies/`](case-studies/)** | Process in action | [WorkRoom Implementation](case-studies/workroom-implementation.md) |
+| **[`automation/`](automation/)** | D180 build specs | [Linear gatekeeping](automation/linear-gatekeeping.md) |
+| **[`decisions/`](decisions/)** | Decision log | [Execution operating system decisions](decisions/001-execution-operating-system.md) |
+
+---
+
 <details>
 <summary><strong>Appendix: templates (tiny + specific)</strong></summary>
 
 <br/>
 
-| Artifact | Contents |
-|:---------|:---------|
-| **PRD-lite** | problem, user, workflow, success criteria, non-goals, risks |
-| **UX mock** | one screen + user journey description |
-| **Design note** | approach, API/interface impacts, data model impacts, security implications, rollout plan |
+| Artifact | Contents | Template |
+|:---------|:---------|:---------|
+| **PRD-lite** | problem, user, workflow, success criteria, non-goals, risks | [Use template &rarr;](templates/prd-lite.md) |
+| **UX mock** | one screen + user journey description | [Use template &rarr;](templates/ux-mock.md) |
+| **Design note** | approach, API/interface impacts, data model impacts, security implications, rollout plan | [Use template &rarr;](templates/design-note.md) |
 
 **What good looks like:**
 - Data model impact = entities + migration story
