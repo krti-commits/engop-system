@@ -1,23 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="200" viewBox="0 0 900 200">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#0a0a0a"/>
-      <stop offset="100%" style="stop-color:#1a1a2e"/>
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
     </linearGradient>
     <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#2ECDA7"/>
-      <stop offset="100%" style="stop-color:#00B98D"/>
+      <stop offset="0%" stop-color="#2ECDA7"/>
+      <stop offset="100%" stop-color="#00B98D"/>
     </linearGradient>
   </defs>
   <rect width="900" height="200" fill="url(#bg)" rx="12"/>
   <rect y="0" width="900" height="5" fill="url(#accent)" rx="2"/>
-  <!-- Geometric chevron mark -->
   <g transform="translate(60, 55)">
     <path d="M40 0 L80 25 L40 50 L0 25 Z" fill="#2ECDA7" opacity="0.3"/>
     <path d="M40 15 L70 35 L40 55 L10 35 Z" fill="#2ECDA7" opacity="0.6"/>
     <path d="M40 30 L60 43 L40 56 L20 43 Z" fill="#2ECDA7"/>
   </g>
-  <text x="170" y="90" font-family="system-ui, -apple-system, sans-serif" font-size="40" font-weight="700" fill="#ffffff">Execution Operating System</text>
-  <text x="170" y="130" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#2ECDA7" font-weight="500">Intent → Contract → Delivery</text>
-  <text x="170" y="160" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#888888">A contract-first framework for engineering teams</text>
+  <text x="170" y="90" font-family="sans-serif" font-size="40" font-weight="700" fill="#ffffff">Execution Operating System</text>
+  <text x="170" y="130" font-family="sans-serif" font-size="18" fill="#2ECDA7" font-weight="500">Intent → Contract → Delivery</text>
+  <text x="170" y="160" font-family="sans-serif" font-size="14" fill="#888888">A contract-first framework for engineering teams</text>
 </svg>

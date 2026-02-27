@@ -1,37 +1,37 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="820" height="110" viewBox="0 0 820 110">
   <defs>
     <linearGradient id="gc1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#2ECDA7;stop-opacity:0.15"/>
-      <stop offset="100%" style="stop-color:#2ECDA7;stop-opacity:0.05"/>
+      <stop offset="0%" stop-color="#2ECDA7" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#2ECDA7" stop-opacity="0.05"/>
     </linearGradient>
     <linearGradient id="gc2" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#2ECDA7"/>
-      <stop offset="100%" style="stop-color:#00B98D"/>
+      <stop offset="0%" stop-color="#2ECDA7"/>
+      <stop offset="100%" stop-color="#00B98D"/>
     </linearGradient>
-    <marker id="arr" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
-      <path d="M0,0 L8,4 L0,8" fill="#2ECDA7"/>
-    </marker>
   </defs>
 
   <rect x="0" y="10" width="170" height="80" rx="10" fill="url(#gc1)" stroke="#2ECDA7" stroke-width="1.5"/>
-  <text x="85" y="42" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#2ECDA7">Ticket</text>
-  <text x="85" y="65" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#2ECDA7" opacity="0.7">(DoD + milestones)</text>
+  <text x="85" y="42" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="600" fill="#2ECDA7">Ticket</text>
+  <text x="85" y="65" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#2ECDA7" opacity="0.7">(DoD + milestones)</text>
 
-  <path d="M182 50 L205 50" stroke="#2ECDA7" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <line x1="182" y1="50" x2="203" y2="50" stroke="#2ECDA7" stroke-width="2"/>
+  <polygon points="203,44 215,50 203,56" fill="#2ECDA7"/>
 
   <rect x="215" y="10" width="170" height="80" rx="10" fill="url(#gc1)" stroke="#2ECDA7" stroke-width="1.5"/>
-  <text x="300" y="42" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#2ECDA7">UX mock +</text>
-  <text x="300" y="65" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#2ECDA7">API contract</text>
+  <text x="300" y="42" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="600" fill="#2ECDA7">UX mock +</text>
+  <text x="300" y="65" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="600" fill="#2ECDA7">API contract</text>
 
-  <path d="M397 50 L420 50" stroke="#2ECDA7" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <line x1="397" y1="50" x2="418" y2="50" stroke="#2ECDA7" stroke-width="2"/>
+  <polygon points="418,44 430,50 418,56" fill="#2ECDA7"/>
 
   <rect x="430" y="10" width="170" height="80" rx="10" fill="url(#gc1)" stroke="#2ECDA7" stroke-width="1.5"/>
-  <text x="515" y="42" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#2ECDA7">Build</text>
-  <text x="515" y="65" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#2ECDA7">& review</text>
+  <text x="515" y="42" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="600" fill="#2ECDA7">Build</text>
+  <text x="515" y="65" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="600" fill="#2ECDA7">& review</text>
 
-  <path d="M612 50 L635 50" stroke="#2ECDA7" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <line x1="612" y1="50" x2="633" y2="50" stroke="#2ECDA7" stroke-width="2"/>
+  <polygon points="633,44 645,50 633,56" fill="#2ECDA7"/>
 
   <rect x="645" y="10" width="170" height="80" rx="12" fill="url(#gc2)" stroke="none"/>
-  <text x="730" y="42" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">Outcome</text>
-  <text x="730" y="65" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="500" fill="#ffffff" opacity="0.9">(customer intent)</text>
+  <text x="730" y="42" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#ffffff">Outcome</text>
+  <text x="730" y="65" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="500" fill="#ffffff" opacity="0.9">(customer intent)</text>
 </svg>
