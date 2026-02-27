@@ -1,29 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="100" viewBox="0 0 800 100">
-  <defs>
-    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2ECDA7" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#2ECDA7" stop-opacity="0.05"/>
-    </linearGradient>
-  </defs>
-
-  <rect x="0" y="10" width="160" height="70" rx="10" fill="url(#g1)" stroke="#2ECDA7" stroke-width="1.5"/>
+  <rect x="0" y="10" width="160" height="70" rx="10" fill="#2ECDA7" fill-opacity="0.1" stroke="#2ECDA7" stroke-width="1.5"/>
   <text x="80" y="52" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="600" fill="#2ECDA7">1. Intent</text>
 
   <line x1="172" y1="45" x2="193" y2="45" stroke="#2ECDA7" stroke-width="2"/>
   <polygon points="193,39 205,45 193,51" fill="#2ECDA7"/>
 
-  <rect x="205" y="10" width="160" height="70" rx="10" fill="url(#g1)" stroke="#2ECDA7" stroke-width="1.5"/>
+  <rect x="205" y="10" width="160" height="70" rx="10" fill="#2ECDA7" fill-opacity="0.1" stroke="#2ECDA7" stroke-width="1.5"/>
   <text x="285" y="52" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="600" fill="#2ECDA7">2. Design</text>
 
   <line x1="377" y1="45" x2="398" y2="45" stroke="#2ECDA7" stroke-width="2"/>
   <polygon points="398,39 410,45 398,51" fill="#2ECDA7"/>
 
-  <rect x="410" y="10" width="160" height="70" rx="10" fill="url(#g1)" stroke="#2ECDA7" stroke-width="1.5"/>
+  <rect x="410" y="10" width="160" height="70" rx="10" fill="#2ECDA7" fill-opacity="0.1" stroke="#2ECDA7" stroke-width="1.5"/>
   <text x="490" y="52" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="600" fill="#2ECDA7">3. Execution</text>
 
   <line x1="582" y1="45" x2="603" y2="45" stroke="#2ECDA7" stroke-width="2"/>
   <polygon points="603,39 615,45 603,51" fill="#2ECDA7"/>
 
-  <rect x="615" y="10" width="160" height="70" rx="10" fill="url(#g1)" stroke="#2ECDA7" stroke-width="1.5"/>
+  <rect x="615" y="10" width="160" height="70" rx="10" fill="#2ECDA7" fill-opacity="0.1" stroke="#2ECDA7" stroke-width="1.5"/>
   <text x="695" y="52" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="600" fill="#2ECDA7">4. Release</text>
 </svg>
