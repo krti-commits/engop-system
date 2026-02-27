@@ -63,6 +63,20 @@ Each template includes a filled-in example so you can see what good looks like.
 
 ---
 
+## Tooling
+
+This framework defines **what** to do. [**PRDEngine**](https://github.com/krti-commits/PRDEngine) automates the hardest part: generating the requirements artifacts.
+
+| Framework artifact | PRDEngine tier | What happens |
+|:-------------------|:---------------|:-------------|
+| [PRD-lite](templates/prd-lite.md) | Lightweight (~1 page) | PRDEngine assesses your feature and generates a right-sized PRD |
+| [Design note](templates/design-note.md) | Standard (~3-5 pages) | PRDEngine adds API design, data model, security sections as needed |
+| Full PRD for complex work | Comprehensive / Enterprise | PRDEngine scales up to 15+ pages with traceability matrices and ADR stubs |
+
+The [ticket gatekeeping automation](automation/ticket-gatekeeping.md) can use PRDEngine to auto-generate stubs when work starts, closing the loop between enforcement and artifact creation.
+
+---
+
 ## How to get started
 
 **If you're an engineer:** Copy a [template](templates/) for your next feature. Start with the [PRD-lite](templates/prd-lite.md) if requirements feel ambiguous, or the [design note](templates/design-note.md) if you're about to write code.

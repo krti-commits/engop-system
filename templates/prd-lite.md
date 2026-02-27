@@ -4,6 +4,8 @@
 PURPOSE: Define the "why" and "what" in ONE PAGE before UX and design work starts.
 GOAL: Clarity, not completeness. If you can't fit it on one page, it's too big.
 EXAMPLE: See bottom for a filled-in example.
+AUTO-GENERATE: PRDEngine (https://github.com/krti-commits/PRDEngine) can generate this
+from a feature description. Its "Lightweight" tier maps directly to this template.
 -->
 
 ## Problem Statement
