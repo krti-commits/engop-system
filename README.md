@@ -2,200 +2,73 @@
   <img src="assets/banner.svg" alt="Execution Operating System" width="900"/>
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/status-v1-2ECDA7?style=flat-square" alt="Status"/>
-  <img src="https://img.shields.io/badge/type-framework-2ECDA7?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiI+PGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9IjUiIGZpbGw9IiMyRUNEQTciLz48L3N2Zz4=" alt="Framework"/>
-  <img src="https://img.shields.io/badge/approach-contract_first-00B98D?style=flat-square" alt="Contract First"/>
-</p>
+---
+
+## What is this
+
+A lightweight framework for engineering teams that want to stop building plausible things that aren't the customer thing.
+
+The core idea: **make intent testable before you build**, so rework becomes the exception.
 
 ---
 
-## Why: avoidable churn
+## The problem: avoidable churn
 
-Teams often build features where the interface or contract intent was ambiguous. Common examples:
+Teams build features where the interface or contract intent was ambiguous:
 
-- We built a dashboard that exposed raw data, but users needed actionable insights
-- We created a powerful API with 20 endpoints, but the UI workflow only needed 3 simple operations
-- We implemented feature X, but the customer actually needed feature Y because the underlying intent wasn't explicit
+- Dashboard that exposed raw data, but users needed actionable insights
+- Powerful API with 20 endpoints, but the UI only needed 3 operations
+- Feature X implemented, but customer actually needed Feature Y
 
-Not pervasive, but **completely avoidable**.
-
-> **Result** &mdash; plausible builds that were not the customer outcome
->
-> **Goal** &mdash; make intent testable earlier so rework is avoidable
+Not pervasive, but completely avoidable. The cost is engineering time spent building the right thing twice.
 
 ---
 
-## Minimal operating model (contract-first)
+## The model: contract-first
 
-> Contract-first = UX flow + API contract reviewed together; UI must not force incoherent APIs.
+> Contract-first = UX flow and API contract reviewed together before build starts.
 
 <p align="center">
   <img src="assets/flow-model.svg" alt="Intent → Design → Execution → Release" width="800"/>
 </p>
 
----
-
-## Current cycle: lock what is in motion
-
-<table>
-<tr>
-<td width="40">
-
-![check](https://img.shields.io/badge/✓-2ECDA7?style=flat-square&labelColor=2ECDA7)
-
-</td>
-<td>
-
-**Definition of Done** in tickets + milestones + short tech design note
-
-</td>
-</tr>
-<tr>
-<td>
-
-![check](https://img.shields.io/badge/✓-2ECDA7?style=flat-square&labelColor=2ECDA7)
-
-</td>
-<td>
-
-**No new process rollout mid-cycle**
-
-</td>
-</tr>
-<tr>
-<td>
-
-![check](https://img.shields.io/badge/✓-2ECDA7?style=flat-square&labelColor=2ECDA7)
-
-</td>
-<td>
-
-If sign-off is blocked past agreed date, **DRI escalates to project lead**; decision + rationale recorded in ticket system
-
-</td>
-</tr>
-</table>
-
----
-
-## Automation target: ticket system gatekeeping
-
-<table>
-<tr>
-<td width="40">
-
-![bot](https://img.shields.io/badge/🤖-1a1a2e?style=flat-square&labelColor=1a1a2e)
-
-</td>
-<td>
-
-Block **'In Progress'** unless DoD fields + mock/contract link are present for interface/contract work
-
-</td>
-</tr>
-<tr>
-<td>
-
-![bot](https://img.shields.io/badge/🤖-1a1a2e?style=flat-square&labelColor=1a1a2e)
-
-</td>
-<td>
-
-Bot can **auto-stub the design note** to reduce friction
-
-</td>
-</tr>
-<tr>
-<td>
-
-![bot](https://img.shields.io/badge/🤖-1a1a2e?style=flat-square&labelColor=1a1a2e)
-
-</td>
-<td>
-
-Enforces intent before build &mdash; **automation beats process**
-
-</td>
-</tr>
-</table>
-
----
-
-## UAT expansion (highest ROI)
-
-| | |
-|---|---|
-| **Focus areas** | authentication/authorization, installers, core engines |
-| **Approach** | Build on existing CD pipeline + SDK smoke tests; expand with browser automation flows + regression harness |
-| **Outcome** | Fewer regressions without slowing delivery |
-
----
-
-## Example chain: make intent testable
+Four layers. Nothing novel. The key constraint: UI must not drive API design in isolation. They're designed as a unit.
 
 <p align="center">
-  <img src="assets/example-chain.svg" alt="Ticket → UX mock + API contract → Build & review → Outcome" width="820"/>
+  <img src="assets/example-chain.svg" alt="Ticket → UX mock + API contract → Build and review → Outcome" width="820"/>
 </p>
 
-<p align="center">
-  <em>If mock/contract is missing, we build plausible outcomes that are not the customer outcome.</em>
-</p>
+If the mock or contract is missing, you build plausible outcomes that aren't the customer outcome. This chain prevents that.
 
 ---
 
-## Repo contents
+## What's in this repo
 
-| | Resource | Description |
-|:--|:---------|:------------|
-| **[`templates/`](templates/)** | Fill-in-the-blank artifacts | [PRD-lite](templates/prd-lite.md) · [UX mock](templates/ux-mock.md) · [Design note](templates/design-note.md) |
-| **[`case-studies/`](case-studies/)** | Process in action | Real-world implementation examples |
-| **[`automation/`](automation/)** | Automation specs | Ticket system gatekeeping and workflow automation |
-| **[`decisions/`](decisions/)** | Decision log | Execution operating system decisions and rationale |
+| Folder | What it is | Start here if... |
+|:-------|:-----------|:-----------------|
+| **[`templates/`](templates/)** | Fill-in-the-blank artifacts for your next feature | You want to use the framework today |
+| **[`case-studies/`](case-studies/)** | Walkthrough of the process applied to a real feature | You want to see what good looks like |
+| **[`automation/`](automation/)** | Blueprint for ticket system gatekeeping | You want to build enforcement tooling |
+| **[`decisions/`](decisions/)** | Decision template for adopting the framework | You're leading adoption for your team |
+
+### Templates
+
+| Template | Purpose | When to use |
+|:---------|:--------|:------------|
+| [PRD-lite](templates/prd-lite.md) | One-page problem/solution/criteria | Before design starts |
+| [Design note](templates/design-note.md) | Technical approach, API impacts, data model, security | Before coding starts |
+| [UX mock](templates/ux-mock.md) | Screen layout + user journey + API surface | Before coding starts |
+
+Each template includes a filled-in example so you can see what good looks like.
 
 ---
 
-<details>
-<summary><strong>Appendix: templates (tiny + specific)</strong></summary>
+## How to get started
 
-<br/>
+**If you're an engineer:** Copy a [template](templates/) for your next feature. Start with the [PRD-lite](templates/prd-lite.md) if requirements feel ambiguous, or the [design note](templates/design-note.md) if you're about to write code.
 
-| Artifact | Contents | Template |
-|:---------|:---------|:---------|
-| **PRD-lite** | problem, user, workflow, success criteria, non-goals, risks | [Use template &rarr;](templates/prd-lite.md) |
-| **UX mock** | one screen + user journey description | [Use template &rarr;](templates/ux-mock.md) |
-| **Design note** | approach, API/interface impacts, data model impacts, security implications, rollout plan | [Use template &rarr;](templates/design-note.md) |
+**If you're a tech lead:** Read the [case study](case-studies/applying-contract-first.md) to see contract-first applied end-to-end. Then review the [decision template](decisions/001-execution-operating-system.md) with your team.
 
-**What good looks like:**
-- Data model impact = entities + migration story
-- Security = authz touchpoints + audit fields
-
-</details>
-
-<details>
-<summary><strong>Appendix: learning loop</strong></summary>
-
-<br/>
-
-- **Hot wash:** same-day capture of surprises and pain points
-- **Retro/COE:** metrics-based root cause by layer
-- **Output:** 3-5 corrective actions with DRIs and dates
-
-</details>
-
-<details>
-<summary><strong>Appendix: ownership model</strong></summary>
-
-<br/>
-
-| Role | Responsibility |
-|:-----|:---------------|
-| **Customer surrogate** | Owns intent (product owners, field engineers, customer champions) |
-| **Project lead** | Owns the PRD artifact and cross-functional coordination |
-| **Engineering team** | Negotiates feasibility and nonfunctional requirements |
-
-Explicit decision + escalation + log.
-
-</details>
+**If you're building tooling:** The [ticket gatekeeping blueprint](automation/ticket-gatekeeping.md) is the highest-leverage automation target. It enforces this framework at the ticket system level.
 
 ---

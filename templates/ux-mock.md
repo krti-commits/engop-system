@@ -1,5 +1,3 @@
-![template](https://img.shields.io/badge/template-UX_mock-2ECDA7?style=flat-square)
-
 # UX Mock: [Feature Name]
 
 <!--

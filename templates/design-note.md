@@ -1,5 +1,3 @@
-![template](https://img.shields.io/badge/template-design_note-2ECDA7?style=flat-square)
-
 # Design Note: [Feature Name]
 
 <!--

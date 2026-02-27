@@ -1,6 +1,4 @@
-# Engineering Execution Operating System - Decision Template
-
-![decisions](https://img.shields.io/badge/decisions-template-2ECDA7?style=flat-square)
+# Execution Operating System - Decision Template
 
 ## Overview
 

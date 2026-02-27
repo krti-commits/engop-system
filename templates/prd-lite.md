@@ -1,5 +1,3 @@
-![template](https://img.shields.io/badge/template-PRD_lite-2ECDA7?style=flat-square)
-
 # PRD Lite: [Feature Name]
 
 <!--

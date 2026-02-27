@@ -1,8 +1,6 @@
 # How to Apply Contract-First Engineering
 
-![guide](https://img.shields.io/badge/guide-Contract_First-2ECDA7?style=flat-square)
-
-**A practical walkthrough for applying the 4-layer contract-first model to real feature work**
+A practical walkthrough: applying the 4-layer model to a real feature.
 
 ---
 
