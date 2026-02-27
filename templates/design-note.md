@@ -16,9 +16,10 @@ Describe the technical approach in 1-2 paragraphs.
 - Why this approach over alternatives?
 
 Example (see bottom for full example):
-We'll add a new POST /serving/auto-config endpoint that analyzes model metadata
-(format, size) and cluster resources (CPU/GPU availability) to return a recommended
-engine and resource allocation. The UI calls this before showing the quick deploy modal.
+We'll add a new POST /team/invites endpoint that accepts multiple email addresses,
+validates them against existing users and pending invites, generates unique invite
+tokens, and returns shareable links. The UI calls this endpoint when the admin submits
+the bulk invite form.
 -->
 
 
@@ -57,7 +58,7 @@ How will we migrate existing data?
 <!--
 What operations require auth checks?
 - Which roles can access new endpoints?
-- Any row-level security (e.g., user can only deploy their own models)?
+- Any row-level security (e.g., user can only see their own team)?
 -->
 
 ### Audit Fields
@@ -105,31 +106,33 @@ How do we ensure old clients still work?
 <!--
 EXAMPLE (delete before filling in):
 
-# Design Note: Quick Model Deployment
+# Design Note: Bulk Team Member Invitation
 
 ## Approach Summary
-We'll add a new service method `auto_configure_deployment()` in the Serving service that
-analyzes model metadata (file format, size) and current cluster resources (CPU/GPU/memory
-availability) to recommend an engine and resource allocation. This logic is exposed via
-POST /api/v1/serving/auto-config. The frontend calls this endpoint when the user clicks
-"Quick Deploy", displays the recommended config, and allows one-click deployment.
+We'll add a new service method `create_bulk_invites()` in the Team service that
+validates email addresses, checks for duplicates against existing users and pending
+invites, generates unique cryptographically secure invite tokens (32 bytes), and stores
+them in a new `team_invites` table. This logic is exposed via POST /api/v1/team/invites.
+The frontend calls this endpoint when the admin submits the bulk invite form and displays
+shareable links for each invitation.
 
-We're avoiding a pure client-side approach because resource availability changes rapidly
-and we need server-side validation. We're not using a background job because this needs
-to be fast (<500ms response time).
+We're avoiding email-only invites because they're unreliable (spam filters, expiration).
+Shareable links allow admins to distribute invites via any channel. We're not using
+background jobs because invite creation should be fast (<1s for 10 invites) and we
+want immediate feedback.
 
 ## API / Interface Impacts
 
 ### New Endpoints
-- POST /api/v1/serving/auto-config - Returns recommended engine + resources for a model
-  - Request: `{"model_id": "uuid"}`
-  - Response: `{"engine": "llamacpp", "cpu": 4, "memory_gb": 8, "gpu": 0, "confidence": "high"}`
-  - Auth: Requires authenticated user (any role)
+- POST /api/v1/team/invites - Create bulk invitations
+  - Request: `{"emails": ["alice@example.com", "bob@example.com"], "role": "member"}`
+  - Response: `{"invites": [{"email": "alice@example.com", "link": "https://app.example.com/accept/abc123", "status": "sent"}]}`
+  - Auth: Requires admin role
 
 ### Changed Endpoints
-- POST /api/v1/serving/deploy - Add optional `use_auto_config: bool` field
-  - If true, server re-runs auto-config logic before deploying (in case resources changed)
-  - Backward compatible: defaults to false
+- GET /api/v1/team/members - Add `pending_invites` array to response
+  - Backward compatible: new field only
+  - Shows pending invites with email, role, invited_by, invited_at
 
 ### Breaking Changes
 None. All changes are additive.
@@ -137,67 +140,84 @@ None. All changes are additive.
 ## Data Model Impacts
 
 ### New Entities
-None. Using existing Model and Deployment tables.
+**team_invites table:**
+- `id` (UUID, primary key)
+- `email` (string, indexed)
+- `role` (string: "member", "admin", "viewer")
+- `token` (string, unique, indexed) - 32-byte random hex
+- `invited_by` (UUID, foreign key to users.id)
+- `team_id` (UUID, foreign key to teams.id)
+- `created_at` (timestamp)
+- `expires_at` (timestamp, nullable) - null = never expires
+- `used_at` (timestamp, nullable) - null = not used yet
 
 ### Modified Entities
-**Deployment table:**
-- Add `auto_configured: boolean` field (default: false) to track which deployments used quick deploy
-- Add index on `auto_configured` for analytics queries
+**users table:**
+- Add `invited_by` (UUID, nullable, foreign key to users.id) - tracks who invited this user
+- Add index on `invited_by` for analytics queries
 
 ### Migration Story
-Alembic migration adds new column with default value `false`. No data backfill needed
-since this is a new feature. Existing deployments remain marked as manually configured.
+Alembic migration creates new `team_invites` table and adds `invited_by` column to `users`
+table with default NULL. No data backfill needed since this is a new feature. Existing
+users remain with NULL `invited_by`.
 
 ## Security Implications
 
 ### Authorization Touchpoints
-- POST /api/v1/serving/auto-config: Requires authenticated user (any role)
-- POST /api/v1/serving/deploy: No change (already requires editor role)
-- No row-level security needed - users can auto-config any visible model
+- POST /api/v1/team/invites: Requires admin role, user must be member of target team
+- GET /api/v1/team/members: No change (already requires team member)
+- GET /accept/:token: Public endpoint (no auth), validates token and creates user session
 
 ### Audit Fields
-- Log to audit trail when auto-config is used: `{"action": "deployment.auto_config", "model_id": "...", "user_id": "...", "recommended": {...}}`
-- Log actual deployment separately as existing logic does
+- Log to audit trail when invites are created: `{"action": "team.invites.created", "emails": [...], "invited_by": "...", "team_id": "..."}`
+- Log when invite is accepted: `{"action": "team.invites.accepted", "email": "...", "user_id": "...", "team_id": "..."}`
+- Log failed invite attempts (invalid token, expired, already used)
 
 ### Other Security Considerations
-- Input validation: Model ID must be valid UUID, must exist, user must have read access
-- Rate limiting: Apply existing /api/v1/serving rate limit (10 req/min per user)
-- No secrets or credentials involved
+- Input validation: Email format validation, max 50 emails per request
+- Rate limiting: 10 requests per minute per admin (prevent abuse)
+- Token generation: Use `secrets.token_urlsafe(32)` for cryptographically secure tokens
+- Token validation: Single-use tokens (mark `used_at` on first use)
+- Email verification: Require email confirmation on first login even with valid invite
 
 ## Rollout Plan
 
 ### Feature Flags
-Feature flag: `quick_deploy_enabled` (default: false)
-- When disabled: "Quick Deploy" button hidden in UI, endpoint returns 404
+Feature flag: `bulk_team_invites_enabled` (default: false)
+- When disabled: "Invite Members" button hidden in UI, endpoint returns 404
 - When enabled: Full feature available
 
 ### Migrations
 1. Deploy backend with new endpoint (feature flag off)
-2. Run Alembic migration to add `auto_configured` column
-3. Deploy frontend with Quick Deploy UI (feature flag off)
-4. Enable feature flag for internal testing
-5. Enable feature flag for all users after 1 week of testing
+2. Run Alembic migration to create `team_invites` table and add `invited_by` column
+3. Deploy frontend with bulk invite UI (feature flag off)
+4. Enable feature flag for internal testing (1 week)
+5. Enable feature flag for all organizations after testing
 
 ### Backward Compatibility
 Fully backward compatible:
-- Old UI works (doesn't call new endpoint)
+- Old UI works (uses existing single-invite endpoint)
 - New endpoint is additive
-- Deployment table change is additive with safe default
+- Database changes are additive with safe defaults (NULL values)
+- Old invite links (if any) continue to work
 
 ### Testing Strategy
 **Unit tests:**
-- Test `auto_configure_deployment()` logic with various model formats (.gguf, .safetensors, etc.)
-- Test resource selection when GPU available vs not available
-- Test error handling (model not found, no resources available)
+- Test `create_bulk_invites()` logic with valid emails
+- Test duplicate detection (existing users, pending invites)
+- Test token generation (uniqueness, cryptographic strength)
+- Test email validation (malformed, invalid domains)
 
 **Integration tests:**
-- Test POST /api/v1/serving/auto-config endpoint
-- Test POST /api/v1/serving/deploy with `use_auto_config: true`
+- Test POST /api/v1/team/invites endpoint
+- Test GET /accept/:token flow (create user, add to team)
 - Test feature flag behavior (enabled vs disabled)
+- Test authorization (admin-only access)
 
 **Manual testing:**
-- Quick deploy flow end-to-end with real model
-- Test edge cases: no GPU, no memory, conflicting deployment names
-- Test on both AMD64 and ARM64 nodes
+- Bulk invite flow end-to-end with real emails
+- Test edge cases: duplicate emails, invalid formats, expired tokens
+- Test accept flow from different browsers/devices
+- Test with organization domain allowlist enabled
 
 -->

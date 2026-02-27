@@ -3,16 +3,22 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/status-v2_draft-2ECDA7?style=flat-square" alt="Status"/>
-  <img src="https://img.shields.io/badge/cycle-D150_scope-2ECDA7?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiI+PGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9IjUiIGZpbGw9IiMyRUNEQTciLz48L3N2Zz4=" alt="D150"/>
-  <img src="https://img.shields.io/badge/target-D180_automation-00B98D?style=flat-square" alt="D180"/>
+  <img src="https://img.shields.io/badge/status-v1-2ECDA7?style=flat-square" alt="Status"/>
+  <img src="https://img.shields.io/badge/type-framework-2ECDA7?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiI+PGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9IjUiIGZpbGw9IiMyRUNEQTciLz48L3N2Zz4=" alt="Framework"/>
+  <img src="https://img.shields.io/badge/approach-contract_first-00B98D?style=flat-square" alt="Contract First"/>
 </p>
 
 ---
 
 ## Why: avoidable churn
 
-We have concrete misses where interface/contract intent was ambiguous (COE tool, simplified interface). Not pervasive, but avoidable.
+Teams often build features where the interface or contract intent was ambiguous. Common examples:
+
+- We built a dashboard that exposed raw data, but users needed actionable insights
+- We created a powerful API with 20 endpoints, but the UI workflow only needed 3 simple operations
+- We implemented feature X, but the customer actually needed feature Y because the underlying intent wasn't explicit
+
+Not pervasive, but **completely avoidable**.
 
 > **Result** &mdash; plausible builds that were not the customer outcome
 >
@@ -30,7 +36,7 @@ We have concrete misses where interface/contract intent was ambiguous (COE tool,
 
 ---
 
-## This cycle (D150): lock what is in motion
+## Current cycle: lock what is in motion
 
 <table>
 <tr>
@@ -41,7 +47,7 @@ We have concrete misses where interface/contract intent was ambiguous (COE tool,
 </td>
 <td>
 
-**Definition of Done** in Linear + milestones + short tech design note
+**Definition of Done** in tickets + milestones + short tech design note
 
 </td>
 </tr>
@@ -65,7 +71,7 @@ We have concrete misses where interface/contract intent was ambiguous (COE tool,
 </td>
 <td>
 
-If sign-off is blocked past date X, **DRI escalates to Daniel or Matt**; decision + rationale recorded in Linear
+If sign-off is blocked past agreed date, **DRI escalates to project lead**; decision + rationale recorded in ticket system
 
 </td>
 </tr>
@@ -73,7 +79,7 @@ If sign-off is blocked past date X, **DRI escalates to Daniel or Matt**; decisio
 
 ---
 
-## D180 automation target: Linear gatekeeping
+## Automation target: ticket system gatekeeping
 
 <table>
 <tr>
@@ -120,8 +126,8 @@ Enforces intent before build &mdash; **automation beats process**
 
 | | |
 |---|---|
-| **Focus areas** | authnz, installers, model engine |
-| **Approach** | Build on existing CD pipeline + SDK smoke tests; expand with Playwright browser flows + regression harness |
+| **Focus areas** | authentication/authorization, installers, core engines |
+| **Approach** | Build on existing CD pipeline + SDK smoke tests; expand with browser automation flows + regression harness |
 | **Outcome** | Fewer regressions without slowing delivery |
 
 ---
@@ -129,7 +135,7 @@ Enforces intent before build &mdash; **automation beats process**
 ## Example chain: make intent testable
 
 <p align="center">
-  <img src="assets/example-chain.svg" alt="Linear ticket → UX mock + API contract → Build & review → Outcome" width="820"/>
+  <img src="assets/example-chain.svg" alt="Ticket → UX mock + API contract → Build & review → Outcome" width="820"/>
 </p>
 
 <p align="center">
@@ -143,9 +149,9 @@ Enforces intent before build &mdash; **automation beats process**
 | | Resource | Description |
 |:--|:---------|:------------|
 | **[`templates/`](templates/)** | Fill-in-the-blank artifacts | [PRD-lite](templates/prd-lite.md) · [UX mock](templates/ux-mock.md) · [Design note](templates/design-note.md) |
-| **[`case-studies/`](case-studies/)** | Process in action | [WorkRoom Implementation](case-studies/workroom-implementation.md) |
-| **[`automation/`](automation/)** | D180 build specs | [Linear gatekeeping](automation/linear-gatekeeping.md) |
-| **[`decisions/`](decisions/)** | Decision log | [Execution operating system decisions](decisions/001-execution-operating-system.md) |
+| **[`case-studies/`](case-studies/)** | Process in action | Real-world implementation examples |
+| **[`automation/`](automation/)** | Automation specs | Ticket system gatekeeping and workflow automation |
+| **[`decisions/`](decisions/)** | Decision log | Execution operating system decisions and rationale |
 
 ---
 
@@ -184,16 +190,12 @@ Enforces intent before build &mdash; **automation beats process**
 
 | Role | Responsibility |
 |:-----|:---------------|
-| **Customer surrogate** | Owns intent (Probst, Preston, field engineers) |
-| **Project lead** | Owns the PRD artifact |
-| **Engineering** | Negotiates feasibility and nonfunctional requirements |
+| **Customer surrogate** | Owns intent (product owners, field engineers, customer champions) |
+| **Project lead** | Owns the PRD artifact and cross-functional coordination |
+| **Engineering team** | Negotiates feasibility and nonfunctional requirements |
 
 Explicit decision + escalation + log.
 
 </details>
 
 ---
-
-<p align="center">
-  <sub>krti@kamiwaza.ai · Feb 2026</sub>
-</p>

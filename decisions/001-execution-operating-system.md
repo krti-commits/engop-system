@@ -1,162 +1,328 @@
-# Engineering Execution Operating System - Decision Log
+# Engineering Execution Operating System - Decision Template
 
-![decisions](https://img.shields.io/badge/decisions-log-2ECDA7?style=flat-square)
+![decisions](https://img.shields.io/badge/decisions-template-2ECDA7?style=flat-square)
 
 ## Overview
 
-This log captures key decisions about how the Kamiwaza engineering team executes work, manages product requirements, and enforces quality gates. These decisions emerged from a Slack discussion in February 2026 involving Krti (initiative lead), Daniel (engineering leadership), Matt (CTO-level), and John (engineering leadership).
+This template guides engineering teams through key decisions about how to execute work, manage product requirements, and enforce quality gates. These decision areas emerged from real-world engineering leadership discussions and represent common choices that teams face when building an execution operating system.
 
-## Decisions
+Use this as a decision-making framework, not a prescription. Each decision includes context, recommended defaults, trade-offs, and alternatives to help your team make informed choices that fit your context.
 
-### Decision 001: Automation Beats Process
+## Decision Areas
 
-**Status:** Accepted
-**Date:** February 2026
-**Participants:** Matt (proposed), John, Daniel, Krti
+### Decision 001: Automation vs Process Documentation
 
-#### Context
-
-The v1 of the execution operating system deck included templates, checklists, and process documentation layers. The team debated whether to enforce behavior through documentation or tooling.
-
-#### Decision
-
-Tooling and automation take precedence over documentation and process. If you want to enforce behavior, build it into the system (CI auto-reviewers, Linear bots, automated checks) rather than writing process documents.
-
-#### Consequences
-
-- Process documentation should be minimal
-- Enforcement mechanisms should be automated wherever possible
-- Investment in tooling infrastructure is prioritized
-- Manual checklists are considered a last resort
-
-#### Rationale
-
-Process design is a failure to automate. Teams that rely on documentation and checklists experience drift, inconsistent adoption, and enforcement burden. Automated systems provide consistent, non-negotiable enforcement.
-
----
-
-### Decision 002: No New Process Mid-Cycle
-
-**Status:** Accepted
-**Date:** February 2026
-**Participants:** Daniel (proposed), team consensus
+**Decision Question:** How will your team enforce behavior and maintain quality standards?
 
 #### Context
 
-Team is mid-cycle on the D150 release. Risk of disruption from introducing new process changes during active development.
+Teams need mechanisms to enforce behavior: code review standards, documentation requirements, testing thresholds, and workflow practices. The choice is between documenting process (checklists, guidelines, wikis) and automating enforcement (CI checks, bots, automated gates).
 
-#### Decision
+#### Recommended Default: Automation First
 
-Stick with currently adopted practices through D150:
-- Definition of Done fields in Linear
-- Milestone tracking
-- Short tech design notes
+**Decision:** Prioritize tooling and automation over documentation and process. If you want to enforce behavior, build it into the system (CI auto-reviewers, issue tracker bots, automated checks) rather than writing process documents.
 
-Do not introduce new process changes until D180 cycle begins.
+**Rationale:** Process documentation experiences drift, inconsistent adoption, and enforcement burden. Automated systems provide consistent, non-negotiable enforcement without requiring manual policing.
 
-#### Consequences
+#### Trade-offs
 
-- Stability during D150 execution
-- New automation initiatives target D180 or later
-- Existing practices remain in place without modification
+**Automation advantages:**
+- Consistent enforcement across all contributors
+- No manual policing required
+- Scales with team growth
+- Forces investment in infrastructure
+
+**Automation disadvantages:**
+- Upfront development cost
+- Requires maintenance as systems evolve
+- Can feel rigid if not designed thoughtfully
+- May need escape hatches for edge cases
+
+**Process documentation advantages:**
+- Quick to create and modify
+- Flexible for edge cases
+- Lower technical barrier
+
+**Process documentation disadvantages:**
+- Requires manual enforcement
+- Inconsistent adoption
+- Becomes outdated quickly
+- Creates enforcement burden on reviewers
+
+#### Implementation Guidance
+
+If choosing automation:
+- Start with highest-friction enforcement points
+- Build escape hatches for legitimate edge cases
+- Invest in clear error messages that explain "why"
+- Make automation fast (slow gates create frustration)
+
+If choosing process documentation:
+- Minimize documentation volume
+- Make checklists actionable, not aspirational
+- Assign clear owners for enforcement
+- Review and prune regularly to prevent staleness
 
 ---
 
-### Decision 003: Linear Gatekeeping Automation for D180
+### Decision 002: Change Management Timing
 
-**Status:** Proposed
-**Date:** February 2026
-**Participants:** Krti (proposed), pending final alignment
+**Decision Question:** When do you introduce new practices, tools, or processes?
 
 #### Context
 
-Multiple friction points identified in the development workflow. Team needed to select one automation to ship for D180 cycle.
+Teams operate in cycles: development phases, release milestones, sprint cadences. Introducing new practices mid-cycle risks disruption. Waiting too long risks accumulating technical debt or quality issues.
 
-#### Decision
+#### Recommended Default: Change at Cycle Boundaries
 
-Build Linear automation that enforces requirements before state transitions:
-- Block 'In Progress' state unless Definition of Done fields are populated
-- Require mock/contract link for interface/contract work
-- Bot auto-generates stub design note when ticket enters 'In Progress'
+**Decision:** Introduce new process, tooling, or workflow changes at natural cycle boundaries (e.g., start of new release cycle, beginning of quarter, post-release retrospective). Maintain stability mid-cycle unless addressing critical issues.
 
-#### Alternatives Considered
+**Rationale:** Mid-cycle changes disrupt flow, require context switching, and create adoption confusion. Cycle boundaries provide natural reset points where teams expect change.
 
-1. Automated PRD generation tool
-2. Comprehensive UAT expansion (determined to be independent initiative)
-3. Branch scaffolding automation from tickets
+#### Trade-offs
 
-#### Consequences
+**Change at boundaries:**
+- Predictable, stable execution during cycles
+- Team can mentally prepare for new practices
+- Clear before/after comparison for retrospectives
+- May delay valuable improvements
 
-- Reduced incomplete work entering development
-- Consistent design documentation for architectural changes
-- Enforcement at workflow level, not code review time
-- Engineers blocked from starting work without proper setup
+**Change as needed:**
+- Faster adoption of improvements
+- Can address urgent quality issues immediately
+- May create disruption and inconsistent adoption
+- Harder to measure impact
+
+#### Implementation Guidance
+
+**Define your cycle boundaries:**
+- Release cycles (e.g., every 6 weeks)
+- Quarter boundaries
+- Sprint boundaries (for Scrum teams)
+- Major milestone completions
+
+**Exception criteria for mid-cycle changes:**
+- Critical quality issues causing production incidents
+- Security vulnerabilities requiring immediate process changes
+- Blocking issues preventing work completion
+- Time-sensitive compliance requirements
+
+**Communication pattern:**
+- Announce upcoming changes 2 weeks before cycle boundary
+- Provide training/onboarding materials in advance
+- Pilot with subset of team if possible
+- Retrospect on adoption at next cycle boundary
 
 ---
 
-### Decision 004: Customer Surrogate Owns Intent, Project Lead Owns PRD
+### Decision 003: First Automation to Build
 
-**Status:** Accepted
-**Date:** February 2026
-**Participants:** Daniel, John (converged)
+**Decision Question:** What is the single highest-leverage automation you should build first?
 
 #### Context
 
-Debate about responsibility for requirements definition. Daniel advocated for engineers to own PRDs. John raised concern that engineers build internally-coherent solutions that miss customer needs.
+Teams have many automation opportunities: workflow enforcement, code generation, testing infrastructure, deployment pipelines. Limited engineering time means choosing one to start with.
 
-#### Decision
+#### Recommended Default: Issue Tracker Gatekeeping
 
-Responsibility split:
-- **Customer surrogate** (Probst, Preston, field engineers, sales) owns the intent and customer signal
-- **Project lead** owns the PRD artifact and is responsible for negotiating feasibility with engineering
-- Engineers wear "product hat" when writing PRD, "engineering hat" when consuming it
+**Decision:** Build issue tracker automation that enforces requirements before state transitions. Examples:
+- Block 'In Progress' state unless required fields are populated
+- Require design documentation link for architectural changes
+- Auto-generate scaffolding when work begins
+- Validate acceptance criteria before 'Done' transition
 
-#### Consequences
+**Rationale:** Issue tracker gatekeeping catches problems at the earliest possible moment (before development starts) and has immediate, measurable impact on rework reduction. It's also technically tractable for most teams.
 
-- Customer signal remains grounded in real needs
-- Project leads act as translators between customer intent and engineering feasibility
-- Engineers participate in product definition but don't exclusively own it
-- Clear accountability for customer alignment
+#### Alternatives to Consider
 
-#### Rationale
+1. **Automated PRD generation tool**
+   - *Pros:* Reduces documentation burden, ensures consistency
+   - *Cons:* Complex to build, requires sophisticated templates
+   - *Best for:* Teams with stable product patterns
 
-Engineers naturally build internally-coherent systems. Without customer surrogate ownership of intent, solutions risk being technically sound but misaligned with customer problems. Project leads bridge this gap by negotiating feasible solutions that address real customer needs.
+2. **Branch scaffolding automation**
+   - *Pros:* Saves setup time, enforces project structure
+   - *Cons:* Lower impact than requirement enforcement
+   - *Best for:* Teams with complex project structures
+
+3. **Automated UAT/regression testing**
+   - *Pros:* Catches regressions, enables confident releases
+   - *Cons:* Orthogonal to workflow improvements
+   - *Best for:* Teams with high regression rates
+   - *Note:* Can proceed in parallel with workflow automation
+
+4. **CI/CD pipeline enhancements**
+   - *Pros:* Improves deployment velocity and reliability
+   - *Cons:* Doesn't address upstream requirement quality
+   - *Best for:* Teams with deployment friction
+
+#### Selection Framework
+
+Choose based on your highest-friction point:
+
+| Friction Point | Recommended First Automation |
+|----------------|------------------------------|
+| Work starts without clear requirements | Issue tracker gatekeeping |
+| Requirements exist but poorly documented | Automated PRD generation |
+| High regression rate, breaking changes | Automated UAT expansion |
+| Slow/unreliable deployments | CI/CD pipeline improvements |
+| Inconsistent project structures | Branch scaffolding automation |
 
 ---
 
-### Decision 005: UAT Expansion is Independent Initiative
+### Decision 004: Requirements Ownership Model
 
-**Status:** Accepted
-**Date:** February 2026
-**Participants:** Matt (identified), John (endorsed)
+**Decision Question:** Who owns product requirements and customer intent?
 
 #### Context
 
-Matt identified authentication/authorization, installers, and model engine as top regression areas. Need for expanded automated user acceptance testing.
+Requirements can be owned by product managers, engineering leads, customer-facing roles, or distributed across the team. The ownership model affects solution quality, customer alignment, and engineering autonomy.
 
-#### Decision
+#### Recommended Default: Split Ownership (Customer Surrogate + Project Lead)
 
-Expanding automated UAT is a separate, parallel initiative:
-- Extend beyond SDK smoke tests to Playwright browser flows
-- Nick is already working on automated CD infrastructure
-- Not either/or with Linear gatekeeping automation
-- High ROI independent of other process improvements
+**Decision:** Split responsibility:
+- **Customer surrogate** (product, field engineers, customer success, sales) owns the intent and customer signal
+- **Project lead** (engineering lead or senior engineer) owns the requirements artifact and negotiates feasibility
+- Engineers wear "product hat" when writing requirements, "engineering hat" when implementing
 
-#### Consequences
+**Rationale:** Engineers naturally build internally-coherent systems. Without customer surrogate ownership of intent, solutions risk being technically sound but misaligned with customer problems. Project leads bridge the gap by negotiating feasible solutions that address real needs.
 
-- Multiple automation initiatives proceed in parallel
-- UAT expansion does not compete with Linear gatekeeping for D180
-- Focus on highest-regression areas: authnz, installers, model engine
-- Integration with Nick's CD work
+#### Trade-offs
 
-#### Rationale
+**Split ownership (recommended):**
+- Maintains customer grounding
+- Feasibility negotiation built into process
+- Clear accountability for alignment
+- Requires coordination between roles
 
-UAT expansion addresses different problems than workflow enforcement. Both initiatives provide value independently and should proceed in parallel rather than competing for prioritization.
+**Engineer-owned requirements:**
+- Fast iteration, minimal coordination
+- Risk of building wrong thing correctly
+- Works well for purely technical initiatives
+- May miss non-obvious customer needs
+
+**Product manager-owned requirements:**
+- Strong customer alignment
+- May specify infeasible solutions
+- Creates handoff friction
+- Works well with mature product org
+
+**Distributed ownership:**
+- Maximizes team autonomy
+- Requires strong product sense across team
+- Risk of inconsistent quality
+- Works well for senior engineering teams
+
+#### Implementation Guidance
+
+**Define roles clearly:**
+- Who validates customer need?
+- Who writes the requirements document?
+- Who approves feasibility tradeoffs?
+- Who signs off on "done"?
+
+**Establish communication patterns:**
+- How do customer surrogates provide input?
+- When does feasibility negotiation happen?
+- How are tradeoff decisions documented?
+
+**For teams without dedicated product:**
+- Rotate "customer surrogate" responsibility
+- Establish customer interview cadence
+- Document customer feedback systematically
 
 ---
+
+### Decision 005: Testing Strategy Independence
+
+**Decision Question:** Are different testing initiatives independent or bundled?
+
+#### Context
+
+Teams often conflate workflow improvements (e.g., better requirements) with testing improvements (e.g., expanded UAT). The question is whether these initiatives compete for prioritization or proceed in parallel.
+
+#### Recommended Default: Independent Parallel Initiatives
+
+**Decision:** Treat testing expansion as independent from workflow improvements. Examples:
+- Workflow automation (issue gatekeeping, PRD generation) can proceed independently of UAT expansion
+- Automated regression testing is orthogonal to requirements quality
+- Both provide value independently and should not compete for prioritization
+
+**Rationale:** Different initiatives address different problems. Workflow automation prevents building the wrong thing. Testing automation catches regressions and enables confident releases. Both are valuable; neither substitutes for the other.
+
+#### Trade-offs
+
+**Independent initiatives:**
+- Maximize parallel progress
+- Each team can optimize independently
+- Requires coordination to prevent conflicts
+- May strain engineering capacity
+
+**Bundled initiatives:**
+- Simpler coordination
+- Single unified vision
+- Serial progress may be slower
+- Risk of "boiling the ocean"
+
+#### High-Value Testing Focus Areas
+
+When expanding automated testing, prioritize highest-regression areas:
+
+**Common high-regression areas:**
+- Authentication and authorization flows
+- Installation and upgrade processes
+- Core business logic engines
+- Payment and transaction processing
+- Data migration and import/export
+- Multi-tenant isolation
+- API contract stability
+
+**Selection framework:**
+1. Identify recent production incidents
+2. Map to underlying system areas
+3. Prioritize areas with:
+   - High incident frequency
+   - High customer impact
+   - Complex manual testing
+   - Frequent code changes
+
+---
+
+## Using This Template
+
+1. **Review each decision area** with your engineering leadership team
+2. **Discuss context** specific to your team, product, and organization
+3. **Choose your approach** for each decision area (use recommended default or select alternative)
+4. **Document your decisions** using ADR (Architecture Decision Record) format
+5. **Set review cadence** to revisit decisions quarterly or at major milestones
+
+## ADR Format Template
+
+When documenting your decisions, use this structure:
+
+```markdown
+### Decision [NUMBER]: [TITLE]
+
+**Status:** [Proposed | Accepted | Deprecated | Superseded]
+**Date:** [YYYY-MM]
+**Participants:** [Decision makers and stakeholders]
+
+#### Context
+[What is the issue we're addressing? What constraints exist?]
+
+#### Decision
+[What did we decide? Be specific and actionable.]
+
+#### Consequences
+[What are the impacts? Both positive and negative.]
+
+#### Alternatives Considered (optional)
+[What other options did we evaluate? Why did we reject them?]
+```
 
 ## Revision History
 
 | Version | Date | Changes |
 |---------|------|---------|
-| 1.0 | February 2026 | Initial decision log created |
+| 2.0 | February 2026 | Generalized as team-agnostic template |
+| 1.0 | February 2026 | Initial decision log (company-specific) |

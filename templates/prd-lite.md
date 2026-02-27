@@ -13,7 +13,7 @@ EXAMPLE: See bottom for a filled-in example.
 
 
 ## Target User / Persona
-<!-- Who specifically is this for? Enterprise admin? Data scientist? API consumer? -->
+<!-- Who specifically is this for? Team admin? End user? API consumer? Developer? -->
 
 
 ## Current Workflow vs Proposed Workflow
@@ -26,7 +26,7 @@ EXAMPLE: See bottom for a filled-in example.
 
 
 ## Success Criteria (Measurable)
-<!-- How will we know this works? Must be measurable. Examples: "Deploy time < 30s", "95% of users complete flow without support ticket", "API response time < 200ms" -->
+<!-- How will we know this works? Must be measurable. Examples: "Setup time < 2 minutes", "95% of users complete flow without support ticket", "API response time < 200ms" -->
 
 
 ## Non-Goals (Explicit Scope Boundaries)
@@ -42,49 +42,52 @@ EXAMPLE: See bottom for a filled-in example.
 <!--
 EXAMPLE (delete before filling in):
 
-# PRD Lite: One-Click Model Deployment
+# PRD Lite: Team Member Invitation Flow
 
 ## Problem Statement
-Data scientists spend 20+ minutes configuring deployment parameters. 80% use default settings anyway. We're optimizing for the wrong case.
+Team admins spend 5-10 minutes per user invitation due to multi-step forms and email confusion. 60% of invites require support intervention because users can't find the invite email or it expires.
 
 ## Target User / Persona
-- Data scientist who wants to test a model quickly
-- Has model file already uploaded
-- Doesn't care about advanced inference tuning initially
+- Team administrator who needs to onboard new team members
+- Has permission to manage team settings
+- Invites 3-10 people per month on average
 
 ## Current Workflow vs Proposed Workflow
 
 **Current:**
-- Navigate to Models page
-- Click Deploy on model row
-- Fill out 8-field form (engine, replicas, GPU, memory, etc.)
-- Wait for validation
-- Click Deploy
+- Navigate to Team Settings page
+- Click "Add Member" button
+- Fill out 5-field form (email, role, department, access level, expiration)
+- Click "Send Invite"
+- Wait for email to send (no confirmation shown)
+- User checks email, may miss invite or have it expire (48 hours)
 
 **Proposed:**
-- Navigate to Models page
-- Click "Quick Deploy" button on model row
-- System auto-selects engine + resources based on model format + available hardware
-- Deploy starts immediately
-- (Optional) Click "Advanced" to customize if needed
+- Navigate to Team Settings page
+- Click "Invite Members" button
+- Paste one or more email addresses (comma-separated)
+- Select role from dropdown (defaults to "Member")
+- Click "Send Invites"
+- See immediate confirmation with shareable invite links
+- Invites never expire until used or manually revoked
 
 ## Success Criteria (Measurable)
-- Deploy action completes in < 5 clicks (vs 10+ today)
-- 70% of deployments use quick deploy (not advanced)
-- Time-to-deploy for default case: < 45 seconds end-to-end
-- Zero increase in failed deployments due to auto-selection
+- Invite action completes in < 3 clicks (vs 8+ today)
+- 80% of invited users successfully join within 24 hours (vs 40% today)
+- Support tickets related to invites reduced by 70%
+- Bulk invite of 10 users takes < 30 seconds
 
 ## Non-Goals (Explicit Scope Boundaries)
-- NOT handling multi-model pipelines (single model only)
-- NOT supporting custom Docker images in quick deploy
-- NOT auto-scaling configuration (use replicas=1 default)
+- NOT handling guest user invitations (team members only)
+- NOT supporting custom email templates in first version
+- NOT implementing SSO/SAML provisioning (separate feature)
 
 ## Risks and Open Questions
-- Risk: Auto-selection picks wrong engine for edge case model formats
-  - Mitigation: Add "Wrong engine? Click here" escape hatch in UI
-- Open: Should we show a "Review auto-selected config" step before deploy?
-  - Decision needed: UX review
-- Open: What happens if no GPU available but model requires GPU?
-  - Fallback to CPU with warning? Block with error? Needs design decision.
+- Risk: Shareable links could be forwarded to wrong people
+  - Mitigation: Add "This invite is for [email]" message in UI, require email verification on first login
+- Open: Should we allow setting individual roles in bulk invite?
+  - Decision needed: UX review (may complicate the "quick" aspect)
+- Open: What happens if email domain is not on organization allowlist?
+  - Should we block? Warn? Needs security review.
 
 -->
