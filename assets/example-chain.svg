@@ -15,7 +15,7 @@
 
   <rect x="430" y="10" width="170" height="80" rx="10" fill="#2ECDA7" fill-opacity="0.1" stroke="#2ECDA7" stroke-width="1.5"/>
   <text x="515" y="42" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="600" fill="#2ECDA7">Build</text>
-  <text x="515" y="65" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="600" fill="#2ECDA7">& review</text>
+  <text x="515" y="65" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="600" fill="#2ECDA7">&amp; review</text>
 
   <line x1="612" y1="50" x2="633" y2="50" stroke="#2ECDA7" stroke-width="2"/>
   <polygon points="633,44 645,50 633,56" fill="#2ECDA7"/>

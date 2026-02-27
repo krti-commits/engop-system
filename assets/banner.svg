@@ -7,6 +7,6 @@
     <path d="M40 30 L60 43 L40 56 L20 43 Z" fill="#2ECDA7"/>
   </g>
   <text x="170" y="90" font-family="sans-serif" font-size="40" font-weight="700" fill="#ffffff">Execution Operating System</text>
-  <text x="170" y="130" font-family="sans-serif" font-size="18" fill="#2ECDA7" font-weight="500">Intent → Contract → Delivery</text>
+  <text x="170" y="130" font-family="sans-serif" font-size="18" fill="#2ECDA7" font-weight="500">Intent &#x2192; Contract &#x2192; Delivery</text>
   <text x="170" y="160" font-family="sans-serif" font-size="14" fill="#888888">A contract-first framework for engineering teams</text>
 </svg>
